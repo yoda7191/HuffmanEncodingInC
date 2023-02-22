@@ -1,14 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "calculatefrequencies.h"
+#include "huffmanencode.h"
 
 int main(int argc, char ** argv)
 {
     FILE *readFilePtr;
     FILE *writeFilePtr;
-    
-    int frequencyOfLetters[128] = {0};
 
     if(argc < 1)
     {
@@ -30,7 +28,7 @@ int main(int argc, char ** argv)
     if(writeFilePtr == NULL)
         writeFilePtr = fopen("../output.huffman", "w");
 
-    calculateFrequencies(readFilePtr, &frequencyOfLetters);
+    encode(readFilePtr, writeFilePtr);
 
     return 0;
 }
