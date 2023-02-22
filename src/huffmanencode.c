@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct treeNode_t
 {
     struct treeNode_t *left, *right;
     int freq;
     char c;
-};
+} *node;
 
 int endOfQIndex = 1;
 
@@ -36,15 +37,23 @@ void calculateFrequencies(FILE *readFile, int *freqArray[128])
 
 struct node* createNewNode(int freq, char c, node a, node b)
 {
-    struct node* node = (struct node*)malloc(sizeof(struct node));
+    node newNode = malloc(sizeof(newNode));
     
-    node->freq = freq;
-    node->c = c;
+    if(freq != 0)
+    {
+        newNode->freq = freq;
+        newNode->c = c;
+    }
+    else
+    {
+        newNode->left = a;
+        newNode->right = b;
+        newNode->freq = a->freq + b->freq;
+    }
+    newNode->left = NULL;
+    newNode->right = NULL;
 
-    node->left = NULL;
-    node->right = NULL;
-
-    return node;
+    return newNode;
 }
 
 node removeNode()
