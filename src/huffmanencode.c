@@ -1,70 +1,41 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <stdio.h>
 
-typedef struct treeNode_t
+struct huffmanTree 
 {
-    struct treeNode_t *left, *right;
-    int freq;
-    char c;
-} *node;
+    char character;
+    int frequency;
 
-int endOfQIndex = 1;
+    huffmanTree *left; 
+    huffmanTree *right;
 
-void encode(FILE* readFile, FILE* wrtieFile)
-{
-    int frequencyArray[128] = {0};
-    calculateFrequencies(readFile, frequencyArray);
-
-
-}
-
-void calculateFrequencies(FILE *readFile, int *freqArray[128])
-{
-    char c;
-
-    while((c=fgetc(readFile)) != EOF)
-        freqArray[(int)c]++;
-
-    for(int i = 0; i < 128; i++)
+    huffmanTree(char data, int frequency)
     {
-        if(freqArray[i])
-        {
-            //create nodes
-        }
+        left=NULL;
+        right=NULL;
+        
+        this->data = data;
+        this->frequency = frequency;
     }
-}
+};
 
-struct node* createNewNode(int freq, char c, node a, node b)
+int calculateFrequencyOfLetters(FILE* inputFile);
+
+int huffmanEncode(FILE* inputFile, FILE* outputFile, FILE* treeFile)
 {
-    node newNode = malloc(sizeof(newNode));
-    
-    if(freq != 0)
+    if(calculateFrequencyOfLetters(inputFile))
     {
-        newNode->freq = freq;
-        newNode->c = c;
+        fprintf(stderr, "\n Error calculating freuqncies\n");
+        return 1;
     }
-    else
+    return 0;
+}
+
+int calculateFrequencyOfLetters(FILE* inputFile)
+{   
+    int tempFrequencyArray[128] = {0}, i;
+    while(fgetc(inputFile) != EOF)
     {
-        newNode->left = a;
-        newNode->right = b;
-        newNode->freq = a->freq + b->freq;
+            
     }
-    newNode->left = NULL;
-    newNode->right = NULL;
-
-    return newNode;
-}
-
-node removeNode()
-{
-    node removedNode;
-
-    return removedNode;
-}
-
-void insertNode(node n)
-{
-    int j = endOfQIndex;
-    int i = endOfQIndex++;
 }
